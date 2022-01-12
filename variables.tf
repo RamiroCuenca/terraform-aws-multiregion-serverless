@@ -3,5 +3,6 @@ variable "lambda_functions" {
         name = string
         description = string
         zipfile = string
+        method = string
     }))
 }
