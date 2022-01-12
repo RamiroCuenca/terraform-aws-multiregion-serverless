@@ -1,6 +1,6 @@
 # Create an IAM Role for our Lambda functions
-resource "aws_iam_role" "lambdaRole" {
-  name = "iamrole_for_lambda"
+resource "aws_iam_role" "lambda" {
+  name = "lambda"
 
   assume_role_policy = <<EOF
 {
@@ -20,9 +20,9 @@ EOF
 }
 
 # Provide access to DynamoDB for our Lambda functions
-resource "aws_iam_policy" "policy" {
-  name        = "test-policy"
-  description = "A test policy"
+resource "aws_iam_policy" "dynamodbAccess" {
+  name        = "dynamodb"
+  description = "provide admin access to DynamoDB"
 
   policy = <<EOF
 {
@@ -46,6 +46,6 @@ EOF
 
 # Attach the policy to LambdaRole
 resource "aws_iam_role_policy_attachment" "policyAttach" {
-  role       = aws_iam_role.iamrole_for_lambda.name
-  policy_arn = aws_iam_policy.policy.arn
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.dynamodbAccess.arn
 }
