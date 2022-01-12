@@ -33,5 +33,5 @@ resource "aws_lambda_permission" "apigateway_lambda" {
 
   # The /*//* part allows invocation from any stage, method and resource path
   # within API Gateway REST API.
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/sandbox/${lower(each.value.tags.method)}"
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/sandbox/${lower(each.value.tags.path)}"
 }
