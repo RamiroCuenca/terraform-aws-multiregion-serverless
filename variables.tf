@@ -4,5 +4,6 @@ variable "lambda_functions" {
         description = string
         zipfile = string
         method = string
+        path = string
     }))
 }

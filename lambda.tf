@@ -17,6 +17,7 @@ resource "aws_lambda_function" "function" {
 
   tags = {
     method = each.value.method
+    path = each.value.path
   }
 }
 
