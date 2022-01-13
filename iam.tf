@@ -37,7 +37,7 @@ resource "aws_iam_policy" "dynamodbAccess" {
             "dynamodb:Scan",
             "dynamodb:UpdateItem"
         ],
-        "Resource": "arn:aws:dynamodb:us-east-1:730269305302:table/*"
+        "Resource": "arn:aws:dynamodb:*:*:table/*"
     }
   ]
 }
