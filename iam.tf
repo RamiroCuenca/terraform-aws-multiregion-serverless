@@ -44,8 +44,35 @@ resource "aws_iam_policy" "dynamodbAccess" {
 EOF
 }
 
+resource "aws_iam_policy" "cloudwatchAccess" {
+  name        = "cloudwatch"
+  description = "let lambda create log groups"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
 # Attach the policy to LambdaRole
-resource "aws_iam_role_policy_attachment" "policyAttach" {
+resource "aws_iam_role_policy_attachment" "attachDynamo" {
   role       = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.dynamodbAccess.arn
+}
+
+resource "aws_iam_role_policy_attachment" "attachCloudWatch" {
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.cloudwatchAccess.arn
 }

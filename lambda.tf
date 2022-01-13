@@ -19,6 +19,12 @@ resource "aws_lambda_function" "function" {
     method = each.value.method
     path = each.value.path
   }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.attachCloudWatch,
+    aws_iam_role_policy_attachment.attachDynamo,
+    # aws_cloudwatch_log_group.logs,
+  ]
 }
 
 # Provide our API Gateway with permissions to execute each Lambda function
@@ -28,10 +34,10 @@ resource "aws_lambda_permission" "apigateway_lambda" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = each.value.function_name
-#   function_name = aws_lambda_function.lambda_create_user.function_name
   principal     = "apigateway.amazonaws.com"
 
   # The /*//* part allows invocation from any stage, method and resource path
   # within API Gateway REST API.
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/sandbox/${lower(each.value.tags.path)}"
+  # source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/${lower(each.value.tags.path)}"
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
 }
