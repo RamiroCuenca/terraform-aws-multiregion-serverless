@@ -17,7 +17,7 @@ resource "aws_lambda_function" "function" {
 
   tags = {
     method = each.value.method
-    path = each.value.path
+    path   = each.value.path
   }
 
   depends_on = [

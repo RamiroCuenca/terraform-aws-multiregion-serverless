@@ -11,7 +11,7 @@
 
 resource "aws_cloudwatch_log_group" "logs_ohio" {
   provider = aws.ohio
-  
+
   for_each = aws_lambda_function.function_ohio
 
   name = "/aws/lambda/${each.value.function_name}"

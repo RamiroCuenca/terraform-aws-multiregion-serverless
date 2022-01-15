@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "3.71.0"
     }
   }
@@ -17,7 +17,7 @@ provider "aws" {
 # In order to deploy to multi-region
 provider "aws" {
   region = "us-east-2"
-  alias = "ohio"
+  alias  = "ohio"
 
   profile = "terraform"
 }

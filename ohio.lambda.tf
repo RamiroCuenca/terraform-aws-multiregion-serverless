@@ -19,7 +19,7 @@ resource "aws_lambda_function" "function_ohio" {
 
   tags = {
     method = each.value.method
-    path = each.value.path
+    path   = each.value.path
   }
 
   depends_on = [
